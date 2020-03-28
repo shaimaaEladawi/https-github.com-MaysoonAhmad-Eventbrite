@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{355AC6E1-0808-433B-833E-85E865409E8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{50B3743A-9533-4F26-B6F9-43C3ACB8C900}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{4D53F575-8172-4B99-BAE0-E9BCFE43A4F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogApi", "ProductCatalogAPI\ProductCatalogApi.csproj", "{478E3736-1B36-48D5-8457-9660650B7AE9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A7355146-1312-4585-90DF-8E9C13E675A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{478E3736-1B36-48D5-8457-9660650B7AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{478E3736-1B36-48D5-8457-9660650B7AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{478E3736-1B36-48D5-8457-9660650B7AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{478E3736-1B36-48D5-8457-9660650B7AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7355146-1312-4585-90DF-8E9C13E675A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7355146-1312-4585-90DF-8E9C13E675A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7355146-1312-4585-90DF-8E9C13E675A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7355146-1312-4585-90DF-8E9C13E675A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50B3743A-9533-4F26-B6F9-43C3ACB8C900} = {355AC6E1-0808-433B-833E-85E865409E8A}
+		{4D53F575-8172-4B99-BAE0-E9BCFE43A4F8} = {355AC6E1-0808-433B-833E-85E865409E8A}
+		{478E3736-1B36-48D5-8457-9660650B7AE9} = {50B3743A-9533-4F26-B6F9-43C3ACB8C900}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C06CD28-F254-4272-94C7-10B9424994C9}
+	EndGlobalSection
+EndGlobal
