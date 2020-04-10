@@ -26,7 +26,7 @@ services:
 
       DatabaseServer: mssqlserver
 
-      DatabaseName: CatalogDb
+      DatabaseName: eventCatalogDb
 
       DatabaseUser: sa
 
@@ -72,3 +72,82 @@ services:
 
       - backend
 
+
+
+  tokenserver:
+
+    build:
+
+      context: .\TokenServiceApi
+
+      dockerfile: Dockerfile
+
+    image: events/tokenapi
+
+    logging:
+
+      driver: "json-file"
+
+      options:
+
+        max-size: "200k"
+
+        max-file: "10"
+
+    environment:
+
+      ASPNETCORE_ENVIRONMENT: Development
+
+      MvcClient: http://localhost:5220
+
+    ports:
+
+      - "6500:80"
+
+    container_name: tokenserviceapi
+
+    networks:
+
+      - backend
+
+      - frontend
+
+    depends_on:
+
+      - mssqlserver
+
+
+
+  webmvc:
+
+    build: 
+
+      context: .\webmvc
+
+      dockerfile: Dockerfile
+
+    image: events/webmvc
+
+    container_name: webshopp
+
+    environment:
+
+      ASPNETCORE_ENVIRONMENT: Development
+
+      CatalogUrl: http://catalog
+
+      IdentityUrl: http://192.168.0.41:6500
+
+      CallBackUrl: http://localhost:5220
+
+    ports:
+
+      - "5220:80"
+
+    networks:
+
+      - frontend
+
+    depends_on:
+
+      - catalog

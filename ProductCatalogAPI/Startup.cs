@@ -37,8 +37,35 @@ namespace ProductCatalogAPI
             services.AddDbContext<CatalogContext>(options =>
 
                  options.UseSqlServer(connectionString));
+            services.AddSwaggerGen(options =>
+
+            {
+
+                //options.DescribeAllEnumsAsStrings();
+
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+
+                {
+
+                    Title = "EventsonContainers - Product Catalog API",
+
+                    Version = "v1",
+
+                    Description = "Product catalog microservice"
+
+                });
+
+                options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
+
+
+            });
+
+
 
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,10 +79,28 @@ namespace ProductCatalogAPI
 
             app.UseAuthorization();
 
+            app.UseSwagger()
+
+                 .UseSwaggerUI(e =>
+
+                 {
+
+                     e.SwaggerEndpoint("/swagger/v1/swagger.json", "ProductCatalogAPI V1");
+
+                 });
+
+
+
             app.UseEndpoints(endpoints =>
+
             {
+
                 endpoints.MapControllers();
+
             });
+
         }
+
     }
+
 }

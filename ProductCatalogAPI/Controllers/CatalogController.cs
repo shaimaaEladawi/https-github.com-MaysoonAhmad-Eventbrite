@@ -46,6 +46,7 @@ namespace ProductCatalogApi.Controllers
 
 
             var items = await _context.CatalogEventItems
+                                 .OrderBy(c => c.Name)
 
                                 .Skip(pageIndex * pageSize)
 
@@ -72,7 +73,83 @@ namespace ProductCatalogApi.Controllers
             return Ok(model);
         }
 
-            private List<CatalogEventItem> ChangePictureUrl(List<CatalogEventItem> items)
+        [HttpGet]
+        [Route("[action]/type/{catalogTypeId}/Category/{catalogCategoryId}/location/{catalogLocationId}")]
+
+        public async Task<IActionResult> Items(
+
+            int? catalogTypeId,
+
+            int? catalogCategoryId,
+             int? catalogLocationId,
+
+           [FromQuery]int pageIndex = 0,
+
+           [FromQuery]int pageSize = 6)
+
+        {
+
+            var root = (IQueryable<CatalogEventItem>)_context.CatalogEventItems;
+
+            if (catalogTypeId.HasValue)
+
+            {
+
+                root = root.Where(c => c.CatalogTypeId == catalogTypeId);
+
+            }
+
+
+
+            if (catalogCategoryId.HasValue)
+
+            {
+
+                root = root.Where(c => c.CatalogCategoryId == catalogCategoryId);
+
+            }
+            if (catalogLocationId.HasValue)
+
+            {
+
+                root = root.Where(c => c.CatalogLocationId == catalogLocationId);
+
+            }
+
+            var itemsCount = await root.LongCountAsync();
+
+
+
+            var items = await root
+                                 .OrderBy(c => c.Name)
+
+                                .Skip(pageIndex * pageSize)
+
+                                .Take(pageSize)
+
+                                .ToListAsync();
+
+            items = ChangePictureUrl(items);
+
+            var model = new PaginatedItemsViewModel<CatalogEventItem>
+
+            {
+
+                PageIndex = pageIndex,
+
+                PageSize = pageSize,
+
+                Count = itemsCount,
+
+                Data = items
+
+            };
+
+            return Ok(model);
+        }
+
+
+        private List<CatalogEventItem> ChangePictureUrl(List<CatalogEventItem> items)
         {
             items.ForEach(
 
@@ -86,5 +163,53 @@ namespace ProductCatalogApi.Controllers
 
             return items;
         }
+
+
+        [HttpGet]
+
+        [Route("[action]")]
+
+        public async Task<IActionResult> CatalogEventTypes()
+
+        {
+
+            var items = await _context.CatalogEventTypes.ToListAsync();
+
+            return Ok(items);
+
+        }
+
+
+
+        [HttpGet]
+
+        [Route("[action]")]
+
+        public async Task<IActionResult> CatalogEventLocations()
+
+        {
+
+            var items = await _context.CatalogEventLocations.ToListAsync();
+
+            return Ok(items);
+
+        }
+        [HttpGet]
+
+        [Route("[action]")]
+
+        public async Task<IActionResult> CatalogEventCategories()
+
+        {
+
+            var items = await _context.CatalogEventCategories.ToListAsync();
+
+            return Ok(items);
+
+        }
+
+
+
     }
+
 }
