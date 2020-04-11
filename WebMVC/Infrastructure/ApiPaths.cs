@@ -37,7 +37,7 @@ namespace WebMVC.Infrastructure
 
                     var locationQs = (location.HasValue) ? location.Value.ToString() : "null";
 
-                    filterQs = $"/location/{locationQs}/type/{typeQs}/category/{categoryQs}";
+                    filterQs = $"/category/{categoryQs}/type/{typeQs}/location/{locationQs}";
 
                 }
 

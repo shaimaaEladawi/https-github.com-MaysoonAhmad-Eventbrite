@@ -74,14 +74,16 @@ namespace ProductCatalogApi.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/type/{catalogTypeId}/Category/{catalogCategoryId}/location/{catalogLocationId}")]
+        [Route("[action]/category/{catalogCategoryId}/type/{catalogTypeId}/location/{catalogLocationId}")]
 
         public async Task<IActionResult> Items(
 
-            int? catalogTypeId,
-
             int? catalogCategoryId,
-             int? catalogLocationId,
+
+            int? catalogTypeId,
+            int? catalogLocationId,
+
+
 
            [FromQuery]int pageIndex = 0,
 
@@ -91,21 +93,21 @@ namespace ProductCatalogApi.Controllers
 
             var root = (IQueryable<CatalogEventItem>)_context.CatalogEventItems;
 
-            if (catalogTypeId.HasValue)
-
-            {
-
-                root = root.Where(c => c.CatalogTypeId == catalogTypeId);
-
-            }
-
-
-
             if (catalogCategoryId.HasValue)
 
             {
 
                 root = root.Where(c => c.CatalogCategoryId == catalogCategoryId);
+
+            }
+
+
+
+            if (catalogTypeId.HasValue)
+
+            {
+
+                root = root.Where(c => c.CatalogTypeId == catalogTypeId);
 
             }
             if (catalogLocationId.HasValue)
@@ -115,6 +117,8 @@ namespace ProductCatalogApi.Controllers
                 root = root.Where(c => c.CatalogLocationId == catalogLocationId);
 
             }
+
+
 
             var itemsCount = await root.LongCountAsync();
 
